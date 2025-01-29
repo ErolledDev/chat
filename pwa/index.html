@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test PWA</title>
+    <title>Test PWAw</title>
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">
     <!-- Theme Color -->
@@ -36,16 +36,22 @@
         button:hover {
             background: #1557b0;
         }
+        #installButton {
+            display: none; /* Hidden by default */
+        }
     </style>
 </head>
 <body>
     <h1>Welcome to My PWA!</h1>
     <p>This is a test Progressive Web App (PWA).</p>
     <p>Try adding this to your home screen and using it offline!</p>
-    <button onclick="alert('PWA is working!')">Click Me</button>
+
+    <!-- Install Button -->
+    <button id="installButton">Install Our App</button>
 
     <!-- Register Service Worker -->
     <script>
+        // Register Service Worker
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')
                 .then((registration) => {
@@ -55,6 +61,38 @@
                     console.error('Service Worker registration failed:', error);
                 });
         }
+
+        // Handle Install Prompt
+        let deferredPrompt;
+        const installButton = document.getElementById('installButton');
+
+        window.addEventListener('beforeinstallprompt', (event) => {
+            // Prevent the default prompt
+            event.preventDefault();
+            // Save the event for later use
+            deferredPrompt = event;
+            // Show the install button
+            installButton.style.display = 'block';
+        });
+
+        installButton.addEventListener('click', () => {
+            // Show the install prompt
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                // Wait for the user to respond
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    } else {
+                        console.log('User dismissed the install prompt');
+                    }
+                    // Clear the saved prompt
+                    deferredPrompt = null;
+                    // Hide the install button
+                    installButton.style.display = 'none';
+                });
+            }
+        });
     </script>
 </body>
 </html>
