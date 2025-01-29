@@ -1,0 +1,15 @@
+{
+  "name": "Ces",
+  "short_name": "Ces",
+  "start_url": "https://chat-navy-nine-40.vercel.app/pwa",
+  "display": "standalone",
+  "theme_color": "#1a73e8",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
