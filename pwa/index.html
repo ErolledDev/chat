@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test PWA</title>
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1a73e8">
+    <!-- Styles -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            color: #202124;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #1a73e8;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        button {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background: #1557b0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to My PWA!</h1>
+    <p>This is a test Progressive Web App (PWA).</p>
+    <p>Try adding this to your home screen and using it offline!</p>
+    <button onclick="alert('PWA is working!')">Click Me</button>
+
+    <!-- Register Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then((registration) => {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch((error) => {
+                    console.error('Service Worker registration failed:', error);
+                });
+        }
+    </script>
+</body>
+</html>
